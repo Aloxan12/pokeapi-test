@@ -8,60 +8,54 @@ import {AppRootStateType} from "../BLL/store";
 import {setCurrentPageAC} from "../BLL/mainReducer";
 
 type PaginationPropsType = {
+    pageSize: number
+    portionSize?: number
+    totalItemCounts: number
+    currentPage: number
+    onPageChanged: (pageNumber: number) => void
     setPageCount: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
-export const Pagination: React.FC<PaginationPropsType> = ({setPageCount}) => {
+export const Pagination: React.FC<PaginationPropsType> = ({
+                                                        totalItemCounts,
+                                                        pageSize,
+                                                        onPageChanged,
+                                                        currentPage = 1,
+                                                        portionSize = 10,
+                                                        setPageCount
+                                                    }) => {
+    let pagesCount = Math.ceil(totalItemCounts / pageSize)
 
-    const pages = useSelector<AppRootStateType, number | null>(state => state.main.totalPage)
-    const activePage = useSelector<AppRootStateType, number>(state => state.main.currentPage)
-    const dispatch = useDispatch()
-
-    const changePage = (page: number) => {
-        dispatch(setCurrentPageAC(page))
+    let pages: Array<number> = []
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
-
-    const pagesCount: number[] = []
-
-    if (pages) {
-        for (let i = 1; i <= pages; i++) {
-            pagesCount.push(i)
-        }
-    }
-
-    const borderSize = 9
-    const borderCount = Math.ceil(pagesCount.length / borderSize)
-    const [borderNumber, setBorderNumber] = useState(1)
-    const leftBorderPageNumber = (borderNumber - 1) * borderSize + 1
-    const rightBorderPageNumber = borderNumber * borderSize
+    let portionCount = Math.ceil(pagesCount / portionSize)
+    let [portionNumber, setPortionNumber] = useState(1)
+    let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
+    let rightPortionPageNumber = portionNumber * portionSize;
 
     return (
-        <div className={style.container}>
-
-            {borderNumber > 1 && <Button variant="outlined" color="primary"
-                                         onClick={() => {
-                                             setBorderNumber(borderNumber - 1)
-                                         }}><ArrowLeftIcon/></Button>
-            }
-
-            {pagesCount
-                .filter((p ) => p >= leftBorderPageNumber && p <= rightBorderPageNumber)
-                .map((page, i) => {
-                    return <Button key={i}
-                                   color="primary"
-                                   variant={activePage === page ? "contained" : undefined}
-                                   onClick={() => {
-                                       changePage(page)
-                                   }}
-                    >{page}</Button>
-                })
-            }
-
-            {borderCount > borderNumber && <Button variant="outlined" color="primary"
-                                                   onClick={() => {
-                                                       setBorderNumber(borderNumber + 1)
-                                                   }}><ArrowRightIcon/></Button>
-            }
+        <div className={style.wrap}>
+            <div className={style.numbers}>
+                {portionNumber > 1 &&
+                <Button className={style.arrow} onClick={() => {
+                    setPortionNumber(portionNumber - 1)
+                }}><ArrowLeftIcon /></Button>}
+                {pages
+                    .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
+                    .map((p) => {
+                        return <Button key={p}
+                                     className={currentPage === p ? style.active : style.numb}
+                                     onClick={() => {
+                                         onPageChanged(p)
+                                     }}>{p}</Button>
+                    })}
+                {portionCount > portionNumber &&
+                <Button onClick={() => {
+                    setPortionNumber(portionNumber + 1)
+                }}><ArrowRightIcon /></Button>}
+            </div>
             <div className={style.selectWrap} >
                 <span className={style.selectSpan}>Show</span>
                 <select className={style.select} onChange={setPageCount}>

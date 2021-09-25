@@ -6,6 +6,7 @@ const initialState = {
     pokemons: [] as Array<any>,
     findPokemon: {} as any,
     totalPage: 0,
+    pageCount: 0,
     currentPage: 2,
     limit: 10,
 
@@ -52,8 +53,13 @@ export const setPokemonsTC = (result: resultApi[]) => {
     }
 }
 
-export const setPokemonListTC = (page: number, limit: number) => {
-    return async (dispatch: any) => {
+export const setPokemonListTC = () => {
+    return async (dispatch: any,  getState: () => AppRootStateType) => {
+        const state = getState().main
+        const page = state.currentPage
+        const limit = state.limit
+
+
         const data = await PokeAPI.setPokemonList(page, limit).then(data => data)
         console.log('currenPage:' + page)
         console.log('total:' + data.count)
