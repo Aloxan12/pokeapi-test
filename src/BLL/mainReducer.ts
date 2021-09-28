@@ -68,7 +68,7 @@ export const setPokemonListTC = () => {
         dispatch(setTotalPagesAC(data.count))
         dispatch(setCurrentPageAC(page))
         dispatch(removeOldPokemonAC())
-        dispatch(setPokemonsTC(data.results))
+        dispatch(setPokemonsTC(data.results)) //отфильтровать по имени
     }
 }
 export const searchNamePokemonTC =(name: string)=>{

@@ -21,6 +21,9 @@ export const SearchList = () => {
 
     return (<div>
             <input value={name} onChange={onSearchHandler}/>
+            <div>
+                <h2>{pokemon.name}</h2>
+            </div>
         </div>
     )
 }
