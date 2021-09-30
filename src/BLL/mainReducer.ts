@@ -18,10 +18,11 @@ export const setCurrentPageAC = (currentPage: number) => ({type: "SET_CURRENT_PA
 const setTotalPagesAC = (totalPage: number) => ({type: "SET_TOTAL_COUNT", totalPage} as const)
 export const setPageCountAC = (newPageCount: number) => ({type: 'SET-PAGE-COUNT', newPageCount} as const)
 export const setSearchAC = (pokemon: any) => ({type: 'SET-SEARCH', pokemon} as const)
+export const sortAC = () => ({type: 'SET-SORT'} as const)
 
 type ActionType = ReturnType<typeof setPokemonListAC> | ReturnType<typeof setPokemonAC>
     | ReturnType<typeof setTotalPagesAC> | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof removeOldPokemonAC>
-    | ReturnType<typeof setPageCountAC> | ReturnType<typeof setSearchAC>
+    | ReturnType<typeof setPageCountAC> | ReturnType<typeof setSearchAC> | ReturnType<typeof sortAC>
 
 export const mainReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
@@ -73,8 +74,24 @@ export const setPokemonListTC = () => {
 }
 export const searchNamePokemonTC =(name: string)=>{
     return async (dispatch: any)=>{
-        const pokemon = await PokeAPI.searchPokemon(name).then(res => res.json())
-        console.log(pokemon)
+        const response = await PokeAPI.setPokemon(name).then(res => res)
+        const pokemon = await response.json()
         dispatch(setSearchAC(pokemon))
+    }
+}
+export const sortPokemonTag =(type: number)=>{
+    return async (dispatch: any, getState: () => AppRootStateType)=>{
+        const state = getState().main
+        const page = state.currentPage
+        const limit = state.limit
+
+        const response = await PokeAPI.sortType(type, page, limit).then(res => res)
+        const pokemonType = await response.json()
+        console.log(pokemonType)
+        const newArr = pokemonType.pokemon.map((pok: any) => ({...pok['pokemon']}))
+        console.log(newArr)
+        dispatch(setTotalPagesAC(pokemonType.pokemon.length))
+        dispatch(removeOldPokemonAC())
+        dispatch(setPokemonsTC(newArr))
     }
 }

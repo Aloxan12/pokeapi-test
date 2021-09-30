@@ -18,9 +18,9 @@ export const PokeAPI = {
     setPokemon(pokemonName: string){
         return fetch (`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
     },
-    searchPokemon(pokemonName: string){
-        return fetch (`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
-    }
+    sortType(type: number, page:number, limit: number){
+        return fetch (`https://pokeapi.co/api/v2/type/${type}??limit=${limit}&offset=${page}.`)
+    },
 }
 
 
