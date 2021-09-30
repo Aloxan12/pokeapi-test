@@ -29,9 +29,6 @@ export const PokemonTable =()=> {
   const classes = useStyles();
   const dispatch = useDispatch()
 
-  const onSearch = ()=>{
-
-  }
   const filterByName =()=>{
       return pokemons?.sort((a, b)=>{
         if (a.name > b.name) {
@@ -45,6 +42,10 @@ export const PokemonTable =()=> {
       })
   }
 
+  const filteredPokemon = pokemons.filter(pokemon => {
+    return pokemon.name.toLowerCase().includes(pokemonName.toLowerCase())
+  })
+
   const onSortTag =(e: ChangeEvent<HTMLSelectElement>)=>{
     dispatch(sortPokemonTag(Number(e.currentTarget.value)))
   }
@@ -55,8 +56,10 @@ export const PokemonTable =()=> {
           <h2 style={{textAlign: 'center'}}>Pokemon table</h2>
           <div style={{display: 'flex'}}>
             <div>
-              <input value={pokemonName} onChange={(e)=> setPokemonName(e.currentTarget.value)}/>
-              <button onClick={onSearch}>Search...</button>
+              <input value={pokemonName}
+                     onChange={(e)=> setPokemonName(e.currentTarget.value)}
+                     placeholder={'Search in this box'}
+              />
             </div>
             <div>
               <select onChange={onSortTag}>
@@ -79,7 +82,7 @@ export const PokemonTable =()=> {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {pokemons.map(e => (
+                {filteredPokemon.map(e => (
                     <TableRow key={e.name} className={`thumb-container ${e.types[0].type.name}`}>
                       <TableCell scope='row'>{e.name}</TableCell>
                       <TableCell align="center">
