@@ -4,6 +4,7 @@ import {AppRootStateType} from "./store";
 
 const initialState = {
     pokemons: [] as Array<any>,
+    pokemonsType: [] as Array<any>,
     findPokemon: {} as any,
     totalPage: 0,
     pageCount: 0,
@@ -18,11 +19,11 @@ export const setCurrentPageAC = (currentPage: number) => ({type: "SET_CURRENT_PA
 const setTotalPagesAC = (totalPage: number) => ({type: "SET_TOTAL_COUNT", totalPage} as const)
 export const setPageCountAC = (newPageCount: number) => ({type: 'SET-PAGE-COUNT', newPageCount} as const)
 export const setSearchAC = (pokemon: any) => ({type: 'SET-SEARCH', pokemon} as const)
-export const sortAC = () => ({type: 'SET-SORT'} as const)
+export const sortByTypeAC = (pokemon: any[]) => ({type: 'SORT-BY-TYPE'} as const)
 
 type ActionType = ReturnType<typeof setPokemonListAC> | ReturnType<typeof setPokemonAC>
     | ReturnType<typeof setTotalPagesAC> | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof removeOldPokemonAC>
-    | ReturnType<typeof setPageCountAC> | ReturnType<typeof setSearchAC> | ReturnType<typeof sortAC>
+    | ReturnType<typeof setPageCountAC> | ReturnType<typeof setSearchAC> | ReturnType<typeof sortByTypeAC>
 
 export const mainReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {

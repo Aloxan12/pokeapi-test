@@ -15,7 +15,7 @@ import {
   TableHead,
   TableRow
 } from "@mui/material";
-import {sortAC, sortPokemonTag} from "../BLL/mainReducer";
+import {sortByNameAC, sortPokemonTag} from "../BLL/mainReducer";
 
 const useStyles = makeStyles({
   table: {
@@ -29,26 +29,9 @@ export const PokemonTable =()=> {
   const classes = useStyles();
   const dispatch = useDispatch()
 
-  const filterByName =()=>{
-      return pokemons?.sort((a, b)=>{
-        if (a.name > b.name) {
-          return 1;
-        }
-        if (a.name < b.name) {
-          return -1;
-        }
-        // a должно быть равным b
-        return 0;
-      })
-  }
-
   const filteredPokemon = pokemons.filter(pokemon => {
     return pokemon.name.toLowerCase().includes(pokemonName.toLowerCase())
   })
-
-  const onSortTag =(e: ChangeEvent<HTMLSelectElement>)=>{
-    dispatch(sortPokemonTag(Number(e.currentTarget.value)))
-  }
 
   return (
       <Grid item xs={12} sm={6}>
@@ -61,22 +44,12 @@ export const PokemonTable =()=> {
                      placeholder={'Search in this box'}
               />
             </div>
-            <div>
-              <select onChange={onSortTag}>
-                <option value={1}>1</option>
-                <option value={2}>fighting</option>
-                <option value={3}>3</option>
-                <option value={4}>4</option>
-                <option value={5}>5</option>
-                <option value={6}>6</option>
-              </select>
-            </div>
           </div>
           <TableContainer component={Paper} style={{overflowX: 'hidden'}}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell><b>Name</b><Button onClick={filterByName}>filter by name</Button></TableCell>
+                  <TableCell><b>Name</b></TableCell>
                   <TableCell align="center"><b>Photo</b></TableCell>
                   <TableCell align="center"><b>Type</b></TableCell>
                 </TableRow>
