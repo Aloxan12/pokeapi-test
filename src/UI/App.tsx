@@ -3,7 +3,14 @@ import './App.css';
 import {PokemonTable} from "./Components/PokemonTable/PokemonTable";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../BLL/store";
-import {setCurrentPageAC, setPageCountAC, setPokemonAC, setPokemonListTC} from "../BLL/mainReducer";
+import {
+    searchPokemon,
+    setCurrentPageAC,
+    setPageCountAC,
+    setPokemonAC,
+    setPokemonListTC,
+    setSearchAC, setTotalPagesAC
+} from "../BLL/mainReducer";
 import {Pagination} from "./Common/Pagination";
 import {SearchList} from "./SearchList";
 import {Searchbar} from "./Common/Searchbar";
@@ -32,21 +39,21 @@ function App() {
 
 
     const onSearch = async (pokemon: string) => {
-        // if (!pokemon) {
-        //     return setPokemonListTC()
-        // }
-        // setNotFound(false);
-        // setSearching(true);
-        // const result = await searchPokemon(pokemon);
-        // if (!result) {
-        //     setNotFound(true);
-        //     return;
-        // } else {
-        //     setPokemons([result]);
-        //     setPage(0);
-        //     setTotal(1);
-        // }
-        // setSearching(false);
+        if (!pokemon) {
+            return setPokemonListTC()
+        }
+        setNotFound(false);
+        setSearching(true);
+        const result = await searchPokemon(pokemon);
+        if (!result) {
+            setNotFound(true);
+            return;
+        } else {
+            dispatch(setSearchAC([result]))
+            dispatch(setCurrentPageAC(0))
+            dispatch(setTotalPagesAC(0))
+        }
+        setSearching(false);
     };
 
     console.log(pokemons)
@@ -54,10 +61,18 @@ function App() {
     return (
         <div>
             <div className='AppContainer'>
-                <div><Searchbar onSearch={onSearch}/>
-                    <PokemonTable pokemons={pokemons}/>
-                </div>
-                <SearchList/>
+                    <Searchbar onSearch={onSearch}/>
+                {notFound ? (
+                    <div className="not-found-text">
+                        No se encontro el Pokemon que buscabas 😭
+                    </div>
+                ) : (
+                    <PokemonTable
+                        pokemons={pokemons}
+                    />
+                )}
+                     {/*<PokemonTable pokemons={pokemons}/>*/}
+                {/*<SearchList/>*/}
             </div>
             <Pagination
                 currentPage={currentPage}

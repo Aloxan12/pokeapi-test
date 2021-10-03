@@ -13,6 +13,7 @@ code {
 }
 .AppContainer{
     display: flex;
+    width: 100%;
 }
 .rock {
     background-color: rgb(148, 81, 81);

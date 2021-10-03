@@ -14,6 +14,7 @@ const initialState = {
 }
 const setPokemonListAC = (page: number, limit: number) => ({type: 'SET_POKEMON_LIST', page, limit} as const)
 export const setPokemonAC = (pokemon: any[]) => ({type: 'SET_POKEMON', pokemon} as const)
+export const removeOldPokemonAC = () => ({type: 'REMOVE_OLD_POKEMON', } as const)
 export const setCurrentPageAC = (currentPage: number) => ({type: "SET_CURRENT_PAGE", currentPage} as const)
 export const setTotalPagesAC = (totalPage: number) => ({type: "SET_TOTAL_COUNT", totalPage} as const)
 export const setPageCountAC = (newPageCount: number) => ({type: 'SET-PAGE-COUNT', newPageCount} as const)
@@ -21,7 +22,7 @@ export const setSearchAC = (pokemon: any) => ({type: 'SET-SEARCH', pokemon} as c
 export const sortByTypeAC = (pokemon: any[]) => ({type: 'SORT-BY-TYPE', pokemon} as const)
 
 type ActionType = ReturnType<typeof setPokemonListAC> | ReturnType<typeof setPokemonAC>
-    | ReturnType<typeof setTotalPagesAC> | ReturnType<typeof setCurrentPageAC>
+    | ReturnType<typeof setTotalPagesAC> | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof removeOldPokemonAC>
     | ReturnType<typeof setPageCountAC> | ReturnType<typeof setSearchAC> | ReturnType<typeof sortByTypeAC>
 
 export const mainReducer = (state = initialState, action: ActionType) => {
@@ -33,9 +34,11 @@ export const mainReducer = (state = initialState, action: ActionType) => {
         case "SET_POKEMON":
             return {...state, pokemons:  action.pokemon}
         case "SET-SEARCH":
-            return {...state, findPokemon: action.pokemon}
+            return {...state, pokemons: action.pokemon}
         case "SORT-BY-TYPE":
             return {...state, pokemonsType: [...state.pokemonsType, action.pokemon]}
+        case 'REMOVE_OLD_POKEMON':
+            return {...state, pokemons: []}
         case "SET_CURRENT_PAGE":
             return {...state, currentPage: action.currentPage}
         case "SET_TOTAL_COUNT":
@@ -51,8 +54,8 @@ export const setPokemonsTC = (result: resultApi[]) => {
             return await PokeAPI.setPokemonData(pok.url)
         })
         const pokemons = await Promise.all(promises)
-        console.log(pokemons)
         dispatch(setPokemonAC(pokemons))
+
     }
 }
 
@@ -70,6 +73,7 @@ export const setPokemonListTC = () => {
         dispatch(setPokemonListAC(page, limit))
         dispatch(setTotalPagesAC(data.count))
         dispatch(setCurrentPageAC(page))
+        dispatch(removeOldPokemonAC())
         dispatch(setPokemonsTC(data.results)) //отфильтровать по имени
     }
 }
@@ -77,11 +81,18 @@ export const setPokemonListTC = () => {
 
 export const searchNamePokemonTC = async (pokemon: any)=>{
     try {
-        const data = await  PokeAPI.setPokemon(pokemon).then(res => res.json())
-        return data;
+        return await PokeAPI.setPokemon(pokemon).then(res => res.json())
     }
     catch (err){}
 }
+export const searchPokemon = async (pokemon: string) => {
+    try {
+        const response = await PokeAPI.setPokemon(pokemon);
+        const data = await response.json();
+        return data;
+    } catch (err) {}
+};
+
 export const sortPokemonTag =(type: number)=>{
     return async (dispatch: any, getState: () => AppRootStateType)=>{
         const state = getState().main
