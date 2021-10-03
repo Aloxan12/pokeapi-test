@@ -1,7 +1,7 @@
 import {Route, Switch} from "react-router-dom";
 import App from "./UI/App";
 import React from "react";
-import {PokemonTable} from "./UI/PokemonTable";
+import {PokemonTable} from "./UI/Components/PokemonTable/PokemonTable";
 
 
 export const routes = [

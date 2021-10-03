@@ -3,13 +3,14 @@ import './App.css';
 import {searchNamePokemonTC, sortPokemonTag} from "../BLL/mainReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../BLL/store";
-import {PokemonObject} from "./PokemonObject";
+import {PokemonObject} from "./Components/PokemonTable/PokemonObject";
 
 
 export const SearchList = () => {
     const [name, setName] = useState<string>('')
     const dispatch = useDispatch()
     const pokemon = useSelector<AppRootStateType, any>(state => state.main.findPokemon)
+    const pokemonType = useSelector<AppRootStateType, any>(state => state.main.pokemonsType)
 
 
 
@@ -24,17 +25,10 @@ export const SearchList = () => {
     }
 
     return (<div>
-            <input value={name} onChange={onSearchHandler}/>
-            <button onClick={onClickHandler}>Search</button>
-            {/*<div>*/}
-            {/*    <PokemonObject name={pokemon.name}*/}
-            {/*                   photo={pokemon.sprites.other.dream_world.front_default}*/}
-            {/*                   type={pokemon.types[0].type.name} />*/}
-            {/*</div>*/}
             <div>
                 <h2>Сортировка по типу</h2>
                 <div>
-                    <select onChange={onSortTag}>
+                    <select value={0} onChange={onSortTag}>
                         <option value={1}>1</option>
                         <option value={2}>fighting</option>
                         <option value={3}>3</option>
@@ -42,6 +36,18 @@ export const SearchList = () => {
                         <option value={5}>5</option>
                         <option value={6}>6</option>
                     </select>
+                </div>
+                <div>
+                    {pokemonType.map((p: any, i:number)=>{
+                        return(
+                            <div key={p.name}>
+                                <PokemonObject name={p.name}
+                                               photo={p.sprites.other.dream_world.front_default}
+                                               type={p.types[0].type.name}
+                                />
+                            </div>
+                        )
+                    })}
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export type resultApi ={
     name: string,
-    utl: string
+    url: string
 }
 type ApiType = {
     count: number
@@ -17,6 +17,14 @@ export const PokeAPI = {
     },
     setPokemon(pokemonName: string){
         return fetch (`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
+    },
+    setPokemonData: async (url: string)=>{
+        try {
+            const response = await fetch(url)
+            const data = await response.json();
+            return data;
+        }
+        catch (err){}
     },
     sortType(type: number, page:number, limit: number){
         return fetch (`https://pokeapi.co/api/v2/type/${type}??limit=${limit}&offset=${page}.`)

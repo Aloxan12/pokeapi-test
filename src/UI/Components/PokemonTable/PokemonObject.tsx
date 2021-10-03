@@ -11,7 +11,7 @@ export const PokemonObject: React.FC <PokemonObjectType> =({name, photo, type})=
     return (
         <div>
             <h2>{name}</h2>
-            <img src={photo}>{name}</img>
+            <img src={photo} alt={name} />
             <span>{type}</span>
         </div>
     )

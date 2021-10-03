@@ -4,8 +4,8 @@ import style from './Pagination.module.css'
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../BLL/store";
-import {setCurrentPageAC} from "../BLL/mainReducer";
+import {AppRootStateType} from "../../BLL/store";
+import {setCurrentPageAC} from "../../BLL/mainReducer";
 
 type PaginationPropsType = {
     pageSize: number
