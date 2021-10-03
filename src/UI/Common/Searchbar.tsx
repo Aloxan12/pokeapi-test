@@ -1,4 +1,8 @@
-import React, {ChangeEvent, MouseEvent} from "react";
+import {Button} from "@material-ui/core";
+import {Input} from "@mui/material";
+import './Searchbar.css'
+import React, {ChangeEvent} from "react";
+
 const { useState } = React;
 
 export const Searchbar = (props: any) => {
@@ -19,10 +23,10 @@ export const Searchbar = (props: any) => {
     return (
         <div className="searchbar-container">
             <div className="searchbar">
-                <input placeholder="Buscar pokemon..." onChange={onChange} />
+                <Input placeholder="Search pokemon..." onChange={onChange} />
             </div>
-            <div className="searchbar-btn">
-                <button onClick={onClick}>Buscar</button>
+            <div>
+                <Button variant={"outlined"} onClick={onClick}>Search</Button>
             </div>
         </div>
     );

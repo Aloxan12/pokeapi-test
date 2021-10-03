@@ -38,9 +38,9 @@ function App() {
     }, [])
 
 
-    const onSearch = async (pokemon: string) => {
+    const onSearch = async (pokemon: string | null) => {
         if (!pokemon) {
-            return setPokemonListTC()
+            return dispatch(setPokemonListTC())
         }
         setNotFound(false);
         setSearching(true);
@@ -59,21 +59,20 @@ function App() {
     console.log(pokemons)
 
     return (
-        <div>
-            <div className='AppContainer'>
-                    <Searchbar onSearch={onSearch}/>
-                {notFound ? (
-                    <div className="not-found-text">
-                        No se encontro el Pokemon que buscabas 😭
-                    </div>
-                ) : (
-                    <PokemonTable
-                        pokemons={pokemons}
-                    />
-                )}
-                     {/*<PokemonTable pokemons={pokemons}/>*/}
-                {/*<SearchList/>*/}
-            </div>
+        <div className='AppContainer'>
+            <h2>Pokemon table</h2>
+            <Searchbar onSearch={onSearch}/>
+            {notFound ? (
+                <div className="not-found-text">
+                    No se encontro el Pokemon que buscabas 😭
+                </div>
+            ) : (
+                <PokemonTable
+                    pokemons={pokemons}
+                />
+            )}
+            {/*<PokemonTable pokemons={pokemons}/>*/}
+            {/*<SearchList/>*/}
             <Pagination
                 currentPage={currentPage}
                 pageSize={limit}

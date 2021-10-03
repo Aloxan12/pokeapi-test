@@ -17,19 +17,11 @@ type PokemonTableType = {
     pokemons: any[]
 }
 export const PokemonTable: React.FC<PokemonTableType> = ({pokemons}) => {
-    const [pokemonName, setPokemonName] = useState<string>('')
     const classes = useStyles();
-    const dispatch = useDispatch()
-
-    // const filteredPokemon = pokemons.filter(pokemon => {
-    //   return pokemon.name.toLowerCase().includes(pokemonName.toLowerCase())
-    // })
-
 
     return (
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={8} style={{width: '100%'}}>
             <Container>
-                <h2 style={{textAlign: 'center'}}>Pokemon table</h2>
                 <TableContainer component={Paper} style={{overflowX: 'hidden'}}>
                     <Table className={classes.table} aria-label="simple table">
                         <TableHead>
