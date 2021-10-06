@@ -45,7 +45,28 @@ code {
     background-color:#E2F9E1;
 }
 .water {
-    background-color:#E0F1FD;
+    background-color: #94c6f3;
+}
+.ice{
+    background-color: #307ab6;
+}
+.dragon{
+    background-color: #d04a4a;
+}
+.dark{
+    background-color: #838181;
+}
+.ground{
+    background-color: #b7792a;
+}
+.flying{
+    background-color: #a5d9ea;
+}
+.steel{
+    background-color: #6D6D6D;
+}
+.ground {
+    background-color: #b7792a;
 }
 .thumb-container {
     display: flex;
@@ -68,7 +89,7 @@ h3 {
     padding: 0.2rem 0.4rem;
     background-color: rgba(255,255,255,0.3);
 }
-.thumb-container img {
+.thumb-container img, .emptyPhoto {
     width: 120px;
     height: 120px;
 }

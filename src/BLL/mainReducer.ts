@@ -54,6 +54,7 @@ export const setPokemonsTC = (result: resultApi[]) => {
             return await PokeAPI.setPokemonData(pok.url)
         })
         const pokemons = await Promise.all(promises)
+        console.log(pokemons)
         dispatch(setPokemonAC(pokemons))
 
     }
@@ -78,7 +79,6 @@ export const setPokemonListTC = () => {
     }
 }
 
-
 export const searchPokemon = async (pokemon: string) => {
     try {
         const response = await PokeAPI.setPokemon(pokemon);
@@ -86,7 +86,6 @@ export const searchPokemon = async (pokemon: string) => {
         return data;
     } catch (err) {}
 };
-
 
 export const onSearchTC = (pokemon: string | null,setNotFound:(value: boolean)=>void,setSearching:(value: boolean)=>void)=>{
     return async (dispatch: any)=>{
@@ -109,18 +108,18 @@ export const onSearchTC = (pokemon: string | null,setNotFound:(value: boolean)=>
 
 
 export const sortPokemonTag =(type: number)=>{
-    return async (dispatch: any, getState: () => AppRootStateType)=>{
-        const state = getState().main
-        const page = state.currentPage
-        const limit = state.limit
+    return async (dispatch: any)=>{
 
-        const response = await PokeAPI.sortType(type, page, limit).then(res => res)
+        const response = await PokeAPI.sortType(type).then(res => res)
         const pokemonType = await response.json()
-        const newArr = pokemonType.pokemon.map((pok: any) => ({...pok['pokemon']}))
-            .map(async (p: any)=> {
-            const res = await PokeAPI.setPokemon(p.name).then(res=> res.json())
-                dispatch(sortByTypeAC(res))
+        const promises = pokemonType.pokemon.map((pok: any) => {
+            return ({...pok['pokemon']})
+        }).map(async (u: any) => {
+            return await PokeAPI.setPokemonData(u.url)
         })
-        console.log(newArr)
+        const pokemonsType = await Promise.all(promises)
+        dispatch(setPokemonAC(pokemonsType))
+        //console.log(response)
+        console.log(response)
     }
 }

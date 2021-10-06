@@ -26,8 +26,8 @@ export const PokeAPI = {
         }
         catch (err){}
     },
-    sortType(type: number, page:number, limit: number){
-        return fetch (`https://pokeapi.co/api/v2/type/${type}??limit=${limit}&offset=${page}.`)
+    sortType(type: number){
+        return fetch (`https://pokeapi.co/api/v2/type/${type}`)
     },
 }
 

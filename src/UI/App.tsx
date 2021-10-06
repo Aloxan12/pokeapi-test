@@ -3,9 +3,10 @@ import './App.css';
 import {PokemonTable} from "./Components/PokemonTable/PokemonTable";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../BLL/store";
-import {onSearchTC, setCurrentPageAC, setPageCountAC, setPokemonListTC} from "../BLL/mainReducer";
+import {onSearchTC, setCurrentPageAC, setPageCountAC, setPokemonListTC, sortPokemonTag} from "../BLL/mainReducer";
 import {Pagination} from "./Common/Pagination";
 import {Searchbar} from "./Common/Searchbar";
+import {SearchByTag} from "./Common/SearchByTag";
 
 function App() {
     const totalCount = useSelector<AppRootStateType, number>(state => state.main.totalPage)
@@ -51,14 +52,13 @@ function App() {
     //     setSearching(false);
     // };
 
-    console.log(pokemons)
 
     return (
         <div className='AppContainer'>
             <h2>Pokemon table</h2>
             <div>
                 <Searchbar onSearch={onSearch}/>
-
+                <SearchByTag />
             </div>
             {notFound ? (
                 <div className="not-found-text">

@@ -28,17 +28,24 @@ export const PokemonTable: React.FC<PokemonTableType> = ({pokemons}) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {pokemons.map(e => (
-                                <TableRow key={e.name} className={`thumb-container ${e.types[0].type.name}`}>
-                                    <TableCell align="center" scope='row'>{e.name}</TableCell>
-                                    <TableCell align="center">
-                                        <img src={e.sprites.other.dream_world.front_default} alt={e.name}/>
-                                    </TableCell>
-                                    <TableCell align="center">
-                                        <small>{e.types[0].type.name}</small>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {pokemons.map(e => {
+                                const photo = e.sprites.other.dream_world.front_default
+
+                                return (
+                                    <TableRow key={e.name} className={`thumb-container ${e.types[0].type.name}`}>
+                                        <TableCell align="center" scope='row'>{e.name}</TableCell>
+                                        <TableCell align="center">
+                                            {photo
+                                            ? <img src={photo} alt={e.name}/>
+                                            : <div className={'emptyPhoto'}>Фото отсуствует</div>
+                                            }
+                                        </TableCell>
+                                        <TableCell align="center">
+                                            <small>{e.types[0].type.name}</small>
+                                        </TableCell>
+                                    </TableRow>
+                                )
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>
