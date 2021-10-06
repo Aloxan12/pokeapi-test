@@ -1,70 +1,7 @@
-/*a {*/
-/*    cursor: pointer;*/
-/*}*/
-
-/*.wrap {*/
-/*    display: flex;*/
-/*    margin: 25px auto;*/
-/*}*/
-/*.numbers {*/
-/*    margin-right: 235px;*/
-/*    display: flex;*/
-/*}*/
-/*.arrow {*/
-/*    display: block;*/
-/*    position: relative;*/
-/*}*/
-/*.arrow::before {*/
-/*     position: absolute;*/
-/*     content: "";*/
-/*     background-image: url("./../assets/img/arrowL.png");*/
-/*     background-size: 100%;*/
-/*     background-repeat: no-repeat;*/
-/*     width: 7px;*/
-/*     height: 15px;*/
-/*     top: 8px;*/
-/*     left: -15px;*/
-/* }*/
-/*.numb {*/
-/*    width: 24px;*/
-/*    height: 24px;*/
-/*    margin-right: 10px;*/
-/*    font-size: 12px;*/
-/*    border-radius: 2px;*/
-/*    transition: .5s;*/
-/*}*/
-/*.numb:hover {*/
-/*     color: #fff;*/
-/*     background-color: rgb(53, 61, 184);*/
-/* }*/
-
-
-/*.active {*/
-/*    width: 24px;*/
-/*    height: 24px;*/
-/*    margin-right: 10px;*/
-/*    font-size: 12px;*/
-/*    border-radius: 2px;*/
-/*    color: #fff;*/
-/*    background-color: rgb(53, 61, 184);*/
-/*}*/
-
-/*.arrowEnd {*/
-/*    display: block;*/
-/*    position: relative;*/
-/*}*/
-/*.arrowEnd::before {*/
-/*     position: absolute;*/
-/*     content: "";*/
-/*     background-image: url("./../assets/img/arrowR.png");*/
-/*     background-size: 100%;*/
-/*     background-repeat: no-repeat;*/
-/*     width: 7px;*/
-/*     height: 15px;*/
-/*     top: 8px;*/
-/*     right: -15px;*/
-/* }*/
-
+.wrap {
+    display: flex;
+    margin: 25px auto;
+}
 
 .selectWrap {
     margin-left: 15px;

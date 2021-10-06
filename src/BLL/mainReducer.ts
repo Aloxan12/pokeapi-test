@@ -74,17 +74,11 @@ export const setPokemonListTC = () => {
         dispatch(setTotalPagesAC(data.count))
         dispatch(setCurrentPageAC(page))
         dispatch(removeOldPokemonAC())
-        dispatch(setPokemonsTC(data.results)) //отфильтровать по имени
+        dispatch(setPokemonsTC(data.results))
     }
 }
 
 
-export const searchNamePokemonTC = async (pokemon: any)=>{
-    try {
-        return await PokeAPI.setPokemon(pokemon).then(res => res.json())
-    }
-    catch (err){}
-}
 export const searchPokemon = async (pokemon: string) => {
     try {
         const response = await PokeAPI.setPokemon(pokemon);
@@ -92,6 +86,27 @@ export const searchPokemon = async (pokemon: string) => {
         return data;
     } catch (err) {}
 };
+
+
+export const onSearchTC = (pokemon: string | null,setNotFound:(value: boolean)=>void,setSearching:(value: boolean)=>void)=>{
+    return async (dispatch: any)=>{
+    if (!pokemon) {
+        return dispatch(setPokemonListTC())
+    }
+    setNotFound(false);
+    setSearching(true);
+    const result = await searchPokemon(pokemon);
+    if (!result) {
+        setNotFound(true);
+        return;
+    } else {
+        dispatch(setSearchAC([result]))
+        dispatch(setCurrentPageAC(0))
+        dispatch(setTotalPagesAC(0))
+    }
+    setSearching(false);
+}};
+
 
 export const sortPokemonTag =(type: number)=>{
     return async (dispatch: any, getState: () => AppRootStateType)=>{

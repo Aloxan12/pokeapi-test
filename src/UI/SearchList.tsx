@@ -1,25 +1,18 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
-import {searchNamePokemonTC, sortPokemonTag} from "../BLL/mainReducer";
+import {sortPokemonTag} from "../BLL/mainReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../BLL/store";
 import {PokemonObject} from "./Components/PokemonTable/PokemonObject";
 
 
 export const SearchList = () => {
-    const [name, setName] = useState<string>('')
     const dispatch = useDispatch()
     const pokemon = useSelector<AppRootStateType, any>(state => state.main.findPokemon)
     const pokemonType = useSelector<AppRootStateType, any>(state => state.main.pokemonsType)
 
 
 
-    const onSearchHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.currentTarget.value)
-    }
-    const onClickHandler =()=>{
-        dispatch(searchNamePokemonTC(name))
-    }
     const onSortTag =(e: ChangeEvent<HTMLSelectElement>)=>{
         dispatch(sortPokemonTag(Number(e.currentTarget.value)))
     }
