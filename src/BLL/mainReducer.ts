@@ -5,7 +5,6 @@ import {AppRootStateType} from "./store";
 const initialState = {
     pokemons: [] as Array<any>,
     pokemonsType: [] as Array<any>,
-    findPokemon: {} as any,
     totalPage: 0,
     pageCount: 0,
     currentPage: 2,
@@ -54,7 +53,6 @@ export const setPokemonsTC = (result: resultApi[]) => {
             return await PokeAPI.setPokemonData(pok.url)
         })
         const pokemons = await Promise.all(promises)
-        console.log(pokemons)
         dispatch(setPokemonAC(pokemons))
 
     }
@@ -66,11 +64,7 @@ export const setPokemonListTC = () => {
         const page = state.currentPage
         const limit = state.limit
 
-
         const data = await PokeAPI.setPokemonList(page, limit).then(data => data)
-        console.log('currenPage:' + page)
-        console.log('total:' + data.count)
-        console.log('limit:' + limit)
         dispatch(setPokemonListAC(page, limit))
         dispatch(setTotalPagesAC(data.count))
         dispatch(setCurrentPageAC(page))
@@ -89,37 +83,40 @@ export const searchPokemon = async (pokemon: string) => {
 
 export const onSearchTC = (pokemon: string | null,setNotFound:(value: boolean)=>void,setSearching:(value: boolean)=>void)=>{
     return async (dispatch: any)=>{
-    if (!pokemon) {
-        return dispatch(setPokemonListTC())
-    }
-    setNotFound(false);
-    setSearching(true);
-    const result = await searchPokemon(pokemon);
-    if (!result) {
-        setNotFound(true);
-        return;
-    } else {
-        dispatch(setSearchAC([result]))
-        dispatch(setCurrentPageAC(0))
-        dispatch(setTotalPagesAC(0))
-    }
-    setSearching(false);
+    try {
+        if (!pokemon) {
+            return dispatch(setPokemonListTC())
+        }
+        setNotFound(false);
+        setSearching(true);
+        const result = await searchPokemon(pokemon);
+        if (!result) {
+            setNotFound(true);
+            return;
+        } else {
+            dispatch(setSearchAC([result]))
+            dispatch(setCurrentPageAC(0))
+            dispatch(setTotalPagesAC(0))
+        }
+        setSearching(false);
+    }catch (err) {}
 }};
 
 
 export const sortPokemonTag =(type: number)=>{
     return async (dispatch: any)=>{
-
-        const response = await PokeAPI.sortType(type).then(res => res)
-        const pokemonType = await response.json()
-        const promises = pokemonType.pokemon.map((pok: any) => {
-            return ({...pok['pokemon']})
-        }).map(async (u: any) => {
-            return await PokeAPI.setPokemonData(u.url)
-        })
-        const pokemonsType = await Promise.all(promises)
-        dispatch(setPokemonAC(pokemonsType))
-        //console.log(response)
-        console.log(response)
+        try {
+            const response = await PokeAPI.sortType(type).then(res => res)
+            const pokemonType = await response.json()
+            const promises = pokemonType.pokemon.map((pok: any) => {
+                return ({...pok['pokemon']})
+            }).map(async (u: any) => {
+                return await PokeAPI.setPokemonData(u.url)
+            })
+            const pokemonsType = await Promise.all(promises)
+            dispatch(setPokemonAC(pokemonsType))
+            dispatch(setCurrentPageAC(0))
+            dispatch(setTotalPagesAC(0))
+        }catch (err){}
     }
 }

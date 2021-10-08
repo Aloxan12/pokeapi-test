@@ -17,6 +17,11 @@ code {
     flex-direction: column;
     align-items: center;
 }
+.searchBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .rock {
     background-color: rgb(148, 81, 81);
 }

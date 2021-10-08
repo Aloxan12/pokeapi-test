@@ -12,3 +12,9 @@
     padding-right: 20px;
     flex: 1;
 }
+.searchBlockTag select{
+    padding: 7px 10px;
+}
+.searchBlockTag select option:hover{
+    font-size: 16px;
+}

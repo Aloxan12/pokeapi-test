@@ -34,29 +34,11 @@ function App() {
         dispatch(onSearchTC(pokemon, setNotFound, setSearching))
     }
 
-    // const onSearch = async (pokemon: string | null) => {
-    //     if (!pokemon) {
-    //         return dispatch(setPokemonListTC())
-    //     }
-    //     setNotFound(false);
-    //     setSearching(true);
-    //     const result = await searchPokemon(pokemon);
-    //     if (!result) {
-    //         setNotFound(true);
-    //         return;
-    //     } else {
-    //         dispatch(setSearchAC([result]))
-    //         dispatch(setCurrentPageAC(0))
-    //         dispatch(setTotalPagesAC(0))
-    //     }
-    //     setSearching(false);
-    // };
-
 
     return (
         <div className='AppContainer'>
             <h2>Pokemon table</h2>
-            <div>
+            <div className='searchBlock'>
                 <Searchbar onSearch={onSearch}/>
                 <SearchByTag />
             </div>

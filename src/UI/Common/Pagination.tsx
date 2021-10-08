@@ -14,13 +14,13 @@ type PaginationPropsType = {
 }
 
 export const Pagination: React.FC<PaginationPropsType> = ({
-                                                        totalItemCounts,
-                                                        pageSize,
-                                                        onPageChanged,
-                                                        currentPage = 1,
-                                                        portionSize = 10,
-                                                        setPageCount
-                                                    }) => {
+                                                              totalItemCounts,
+                                                              pageSize,
+                                                              onPageChanged,
+                                                              currentPage = 1,
+                                                              portionSize = 10,
+                                                              setPageCount
+                                                          }) => {
     let pagesCount = Math.ceil(totalItemCounts / pageSize)
 
     let pages: Array<number> = []
@@ -36,32 +36,33 @@ export const Pagination: React.FC<PaginationPropsType> = ({
         <div className={style.wrap}>
             <div className={style.numbers}>
                 {portionNumber > 1 &&
-                <Button className={style.arrow} onClick={() => {
-                    setPortionNumber(portionNumber - 1)
-                }}><ArrowLeftIcon /></Button>}
+                    <Button className={style.arrow} onClick={() => {
+                        setPortionNumber(portionNumber - 1)
+                    }}><ArrowLeftIcon/></Button>}
                 {pages
                     .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                     .map((p) => {
                         return <Button key={p}
-                                     className={currentPage === p ? style.active : style.numb}
-                                     onClick={() => {
-                                         onPageChanged(p)
-                                     }}>{p}</Button>
+                                       className={currentPage === p ? style.active : style.numb}
+                                       onClick={() => {
+                                           onPageChanged(p)
+                                       }}>{p}</Button>
                     })}
                 {portionCount > portionNumber &&
-                <Button onClick={() => {
-                    setPortionNumber(portionNumber + 1)
-                }}><ArrowRightIcon /></Button>}
+                    <Button onClick={() => {
+                        setPortionNumber(portionNumber + 1)
+                    }}><ArrowRightIcon/></Button>}
             </div>
-            <div className={style.selectWrap} >
-                <span className={style.selectSpan}>Show</span>
-                <select className={style.select} onChange={setPageCount}>
-                    <option value={10}>10</option>
-                    <option value={20}>20</option>
-                    <option value={50}>50</option>
-                </select>
-                <span className={style.selectSpan}>Pokemons</span>
-            </div>
+            {totalItemCounts > 10
+                ? <div className={style.selectWrap}>
+                    <span className={style.selectSpan}>Show</span>
+                    <select className={style.select} onChange={setPageCount}>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                        <option value={50}>50</option>
+                    </select>
+                    <span className={style.selectSpan}>Pokemons</span>
+                </div> : ''}
         </div>
     );
 }
