@@ -3,7 +3,7 @@ import './App.css';
 import {PokemonTable} from "./Components/PokemonTable/PokemonTable";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../BLL/store";
-import {onSearchTC, setCurrentPageAC, setPageCountAC, setPokemonListTC, sortPokemonTag} from "../BLL/mainReducer";
+import {onSearchTC, setCurrentPageAC, setPageCountAC, setPokemonListTC} from "../BLL/mainReducer";
 import {Pagination} from "./Common/Pagination";
 import {Searchbar} from "./Common/Searchbar";
 import {SearchByTag} from "./Common/SearchByTag";
@@ -14,7 +14,6 @@ function App() {
     const limit = useSelector<AppRootStateType, number>(state => state.main.limit)
     const pokemons = useSelector<AppRootStateType, any[]>(state => state.main.pokemons)
     const [notFound, setNotFound] = useState(false);
-    const [searching, setSearching] = useState(false);
     const dispatch = useDispatch()
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -28,10 +27,11 @@ function App() {
     }
     useEffect(() => {
         dispatch(setPokemonListTC())
-    }, [])
+    }, [dispatch])
 
-    const onSearch =(pokemon: string | null)=>{
-        dispatch(onSearchTC(pokemon, setNotFound, setSearching))
+    const onSearch = (pokemon: string | null) => {
+        dispatch(onSearchTC(pokemon, setNotFound))
+        setNotFound(false)
     }
 
 
@@ -40,26 +40,27 @@ function App() {
             <h2>Pokemon table</h2>
             <div className='searchBlock'>
                 <Searchbar onSearch={onSearch}/>
-                <SearchByTag />
+                <SearchByTag/>
             </div>
             {notFound ? (
                 <div className="not-found-text">
                     No se encontro el Pokemon que buscabas 😭
                 </div>
             ) : (
-                <PokemonTable
-                    pokemons={pokemons}
-                />
+                <>
+                    <PokemonTable
+                        pokemons={pokemons}
+                    />
+                    <Pagination
+                        currentPage={currentPage}
+                        pageSize={limit}
+                        totalItemCounts={totalCount}
+                        setPageCount={setPageCount}
+                        onPageChanged={onPageChanged}
+                    />
+                </>
             )}
-            {/*<PokemonTable pokemons={pokemons}/>*/}
-            {/*<SearchList/>*/}
-            <Pagination
-                currentPage={currentPage}
-                pageSize={limit}
-                totalItemCounts={totalCount}
-                setPageCount={setPageCount}
-                onPageChanged={onPageChanged}
-            />
+
         </div>
     );
 }

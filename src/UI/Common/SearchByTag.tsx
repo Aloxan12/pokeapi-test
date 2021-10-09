@@ -1,6 +1,5 @@
 import './Searchbar.css'
-import React, {ChangeEvent, useState} from "react";
-import {Select} from '@mui/material';
+import React, {ChangeEvent} from "react";
 import {sortPokemonTag} from "../../BLL/mainReducer";
 import {useDispatch} from "react-redux";
 
