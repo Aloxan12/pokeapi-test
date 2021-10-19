@@ -1,16 +1,24 @@
 import {PokeAPI, resultApi} from "../DAL/api";
 import {AppRootStateType} from "./store";
 
+export type InitialStateType = {
+    pokemons: Array<any>,
+    loading: boolean,
+    totalPage: number,
+    pageCount: number,
+    currentPage: number,
+    limit: number,
+}
 
-const initialState = {
+const initialState: InitialStateType = {
     pokemons: [] as Array<any>,
     loading: false,
     totalPage: 0,
     pageCount: 0,
     currentPage: 2,
     limit: 10,
-
 }
+
 const setPokemonListAC = (page: number, limit: number) => ({type: 'SET_POKEMON_LIST', page, limit} as const)
 const setLoading = (loading: boolean) => ({type: 'SET_LOADING', loading} as const)
 export const setPokemonAC = (pokemon: any[]) => ({type: 'SET_POKEMON', pokemon} as const)
@@ -28,9 +36,8 @@ export const mainReducer = (state = initialState, action: ActionType) => {
     switch (action.type) {
         case 'SET-PAGE-COUNT':
             return {...state, limit: action.newPageCount}
-        case "SET_LOADING":{
+        case "SET_LOADING":
             return {...state, loading: action.loading}
-        }
         case 'SET_POKEMON_LIST':
             return {...state, page: action.page, limit: action.limit}
         case "SET_POKEMON":
