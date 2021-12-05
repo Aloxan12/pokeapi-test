@@ -34,7 +34,6 @@ function App() {
         setNotFound(false)
     }
 
-
     return (
         <div className='AppContainer'>
             <h2>Pokemon table</h2>
