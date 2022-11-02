@@ -19,7 +19,7 @@ export const Searchbar = ({onSearch}:ISearchbarProps) => {
         }
     };
 
-    const onClick = async (e: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => {
+    const onClick = async () => {
         onSearch(search);
     };
 
