@@ -5,8 +5,11 @@ import React, {ChangeEvent} from "react";
 
 const { useState } = React;
 
-export const Searchbar = (props: any) => {
-    const { onSearch } = props;
+interface ISearchbarProps{
+    onSearch:(pokemon: string | null) => void
+}
+
+export const Searchbar = ({onSearch}:ISearchbarProps) => {
     const [search, setSearch] = useState("");
 
     const onChange = (e:ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +19,7 @@ export const Searchbar = (props: any) => {
         }
     };
 
-    const onClick = async (e: any) => {
+    const onClick = async (e: React.MouseEvent<HTMLAnchorElement> | React.MouseEvent<HTMLButtonElement>) => {
         onSearch(search);
     };
 

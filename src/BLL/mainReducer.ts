@@ -85,8 +85,7 @@ export const setPokemonListTC = () => {
 export const searchPokemon = async (pokemon: string) => {
     try {
         const response = await PokeAPI.setPokemon(pokemon);
-        const data = await response.json();
-        return data;
+        return await response.json();
     } catch (err) {}
 };
 
