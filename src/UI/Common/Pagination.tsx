@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {Button} from "@mui/material";
-import style from './Pagination.module.css'
+import styles from './Pagination.module.css'
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 
@@ -31,19 +31,19 @@ export const Pagination: React.FC<PaginationPropsType> = ({
     let [portionNumber, setPortionNumber] = useState(1)
     let leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     let rightPortionPageNumber = portionNumber * portionSize;
-
     return (
-        <div className={style.wrap}>
-            <div className={style.numbers}>
+        <div className={styles.wrap}>
+            <div className={styles.numbers}>
                 {portionNumber > 1 &&
-                    <Button className={style.arrow} onClick={() => {
+                    <Button className={styles.arrow} onClick={() => {
                         setPortionNumber(portionNumber - 1)
                     }}><ArrowLeftIcon/></Button>}
                 {pages
                     .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                     .map((p) => {
                         return <Button key={p}
-                                       className={currentPage === p ? style.active : style.numb}
+                                       className={currentPage === p ? styles.active : styles.numb}
+                                       variant={currentPage === p ? 'contained' : 'outlined'}
                                        onClick={() => {
                                            onPageChanged(p)
                                        }}>{p}</Button>
@@ -54,14 +54,14 @@ export const Pagination: React.FC<PaginationPropsType> = ({
                     }}><ArrowRightIcon/></Button>}
             </div>
             {totalItemCounts > 10
-                ? <div className={style.selectWrap}>
-                    <span className={style.selectSpan}>Show</span>
-                    <select className={style.select} onChange={setPageCount}>
+                ? <div className={styles.selectWrap}>
+                    <span className={styles.selectSpan}>Show</span>
+                    <select className={styles.select} onChange={setPageCount}>
                         <option value={10}>10</option>
                         <option value={20}>20</option>
                         <option value={50}>50</option>
                     </select>
-                    <span className={style.selectSpan}>Pokemons</span>
+                    <span className={styles.selectSpan}>Pokemons</span>
                 </div> : ''}
         </div>
     );

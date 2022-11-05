@@ -13,7 +13,7 @@ type ApiType = {
 
 export const PokeAPI = {
     setPokemonList(page:number, limit: number){
-        return axios.get<ApiType>(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${page}.`).then(res=> res.data)
+        return axios.get<ApiType>(`https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${page*limit}.`).then(res=> res.data)
     },
     setPokemon(pokemonName: string){
         return fetch (`https://pokeapi.co/api/v2/pokemon/${pokemonName}`)
