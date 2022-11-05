@@ -17,6 +17,13 @@ export const routes = [
         exact: true,
         component: PokemonTable
     },
+    {
+        id: 'other',
+        path: '*',
+        exact: true,
+        component: App
+    },
+
 ];
 
 export const getRouteConfig = (id: string) => {
