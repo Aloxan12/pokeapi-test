@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/Flickr/static/css/main.befbb169.chunk.css",
-    "main.js": "/Flickr/static/js/main.4dfa2459.chunk.js",
-    "main.js.map": "/Flickr/static/js/main.4dfa2459.chunk.js.map",
+    "main.js": "/Flickr/static/js/main.a1027c07.chunk.js",
+    "main.js.map": "/Flickr/static/js/main.a1027c07.chunk.js.map",
     "runtime-main.js": "/Flickr/static/js/runtime-main.c5f3aac7.js",
     "runtime-main.js.map": "/Flickr/static/js/runtime-main.c5f3aac7.js.map",
-    "static/js/2.e55cef16.chunk.js": "/Flickr/static/js/2.e55cef16.chunk.js",
-    "static/js/2.e55cef16.chunk.js.map": "/Flickr/static/js/2.e55cef16.chunk.js.map",
+    "static/js/2.1c1483b0.chunk.js": "/Flickr/static/js/2.1c1483b0.chunk.js",
+    "static/js/2.1c1483b0.chunk.js.map": "/Flickr/static/js/2.1c1483b0.chunk.js.map",
     "static/js/3.efdcb6f2.chunk.js": "/Flickr/static/js/3.efdcb6f2.chunk.js",
     "static/js/3.efdcb6f2.chunk.js.map": "/Flickr/static/js/3.efdcb6f2.chunk.js.map",
     "index.html": "/Flickr/index.html",
     "static/css/main.befbb169.chunk.css.map": "/Flickr/static/css/main.befbb169.chunk.css.map",
-    "static/js/2.e55cef16.chunk.js.LICENSE.txt": "/Flickr/static/js/2.e55cef16.chunk.js.LICENSE.txt"
+    "static/js/2.1c1483b0.chunk.js.LICENSE.txt": "/Flickr/static/js/2.1c1483b0.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c5f3aac7.js",
-    "static/js/2.e55cef16.chunk.js",
+    "static/js/2.1c1483b0.chunk.js",
     "static/css/main.befbb169.chunk.css",
-    "static/js/main.4dfa2459.chunk.js"
+    "static/js/main.a1027c07.chunk.js"
   ]
 }
