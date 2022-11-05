@@ -42,7 +42,6 @@ export const Pagination: React.FC<PaginationPropsType> = ({
                     .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                     .map((p) => {
                         return <Button key={p}
-                                       className={currentPage === p ? styles.active : styles.numb}
                                        variant={currentPage === p ? 'contained' : 'outlined'}
                                        onClick={() => {
                                            onPageChanged(p)
