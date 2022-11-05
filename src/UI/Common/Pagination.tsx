@@ -34,10 +34,9 @@ export const Pagination: React.FC<PaginationPropsType> = ({
     return (
         <div className={styles.wrap}>
             <div className={styles.numbers}>
-                {portionNumber > 1 &&
-                    <Button className={styles.arrow} onClick={() => {
+                    <Button className={styles.arrow} disabled={portionNumber <= 1} onClick={() => {
                         setPortionNumber(portionNumber - 1)
-                    }}><ArrowLeftIcon/></Button>}
+                    }}><ArrowLeftIcon/></Button>
                 {pages
                     .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
                     .map((p) => {
