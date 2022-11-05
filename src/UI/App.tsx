@@ -1,18 +1,15 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import './App.css';
 import {PokemonTable} from "./Components/PokemonTable/PokemonTable";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "../BLL/store";
+import {useDispatch} from "react-redux";
+import { useAppSelector} from "../BLL/store";
 import {onSearchTC, setCurrentPageAC, setPageCountAC, setPokemonListTC} from "../BLL/mainReducer";
 import {Pagination} from "./Common/Pagination";
 import {Searchbar} from "./Common/Searchbar";
 import {SearchByTag} from "./Common/SearchByTag";
 
 function App() {
-    const totalCount = useSelector<AppRootStateType, number>(state => state.main.totalPage)
-    const currentPage = useSelector<AppRootStateType, number>(state => state.main.currentPage)
-    const limit = useSelector<AppRootStateType, number>(state => state.main.limit)
-    const pokemons = useSelector<AppRootStateType, any[]>(state => state.main.pokemons)
+    const {pokemons, limit, currentPage, totalPage: totalCount} = useAppSelector(state => state.main)
     const [notFound, setNotFound] = useState(false);
     const dispatch = useDispatch()
 
