@@ -52,7 +52,7 @@ export const Pagination: React.FC<PaginationPropsType> = ({
                     }}><ArrowRightIcon/></Button>}
             </div>
             {totalItemCounts > 10
-                ? <div className={styles.selectWrap}>
+                && <div className={styles.selectWrap}>
                     <span className={styles.selectSpan}>Show</span>
                     <select className={styles.select} onChange={setPageCount}>
                         <option value={10}>10</option>
@@ -60,7 +60,7 @@ export const Pagination: React.FC<PaginationPropsType> = ({
                         <option value={50}>50</option>
                     </select>
                     <span className={styles.selectSpan}>Pokemons</span>
-                </div> : ''}
+                </div>}
         </div>
     );
 }
